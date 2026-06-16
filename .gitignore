@@ -9,3 +9,11 @@ build/
 .pytest_cache/
 *.db
 .neamt_test_*
+
+# Environment & secrets
+.env
+.env.*
+.env.local
+*.key
+*.pem
+secrets/
