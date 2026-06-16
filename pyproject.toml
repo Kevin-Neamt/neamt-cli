@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "neamt"
-version = "0.1.0"
-description = "The Linux of AI — local, modular AI skill runtime with sandboxing and a built-in dashboard"
+version = "0.2.0"
+description = "The Linux of AI — local, modular AI skill runtime with a Claude-powered dashboard"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -51,6 +51,7 @@ neamt = "neamt.cli.__main__:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["neamt", "dashboard"]
+artifacts = ["dashboard/web/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

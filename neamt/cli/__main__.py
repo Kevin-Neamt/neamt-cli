@@ -112,7 +112,7 @@ def doctor_cmd() -> None:
 @app.command("version")
 def version_cmd() -> None:
     """Print version."""
-    typer.echo(f"neamt-core {__version__}")
+    typer.echo(f"neamt {__version__}")
 
 
 if __name__ == "__main__":
