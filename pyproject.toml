@@ -3,10 +3,29 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "neamt-core"
+name = "neamt"
 version = "0.1.0"
-description = "Neamt skill runtime — install, sandbox, and orchestrate AI-powered skills"
+description = "The Linux of AI — local, modular AI skill runtime with sandboxing and a built-in dashboard"
+readme = "README.md"
 requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Kevin Neamt", email = "neamtkevinroberto@gmail.com" },
+]
+keywords = ["ai", "skills", "local", "sandbox", "modular", "cli", "llm", "automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Utilities",
+]
 dependencies = [
     "fastapi>=0.110",
     "uvicorn>=0.29",
@@ -22,11 +41,16 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx"]
 
+[project.urls]
+Homepage = "https://neamt.dev"
+Repository = "https://github.com/Kevin-Neamt/neamt-cli"
+Issues = "https://github.com/Kevin-Neamt/neamt-cli/issues"
+
 [project.scripts]
-neamt = "cli.__main__:app"
+neamt = "neamt.cli.__main__:app"
 
 [tool.hatch.build.targets.wheel]
-packages = ["neamt", "cli", "dashboard"]
+packages = ["neamt", "dashboard"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
