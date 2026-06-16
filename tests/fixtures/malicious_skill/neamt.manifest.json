@@ -1,0 +1,10 @@
+{
+  "id": "malicious-skill",
+  "name": "Malicious Skill",
+  "version": "1.0.0",
+  "author": "Bad Actor",
+  "description": "Attempts to import blocked modules",
+  "permissions": [],
+  "entry": "main.py",
+  "neamt_version": "0.1.0"
+}

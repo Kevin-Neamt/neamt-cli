@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neamt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d12;
+      --surface: #16161f;
+      --border: #1f1f2e;
+      --accent: #7C3AED;
+      --accent-hover: #6d28d9;
+      --text: #e2e2f0;
+      --muted: #6b6b8a;
+      --sidebar-w: 220px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar-header {
+      padding: 20px 16px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-header .logo {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 16px 16px 6px;
+    }
+
+    #nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 8px 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-item:hover { background: rgba(124,58,237,0.08); color: var(--text); }
+    .nav-item.active { background: rgba(124,58,237,0.15); color: var(--text); }
+    .nav-item .icon { font-size: 16px; flex-shrink: 0; }
+
+    .empty-nav {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── Main ── */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #topbar {
+      height: 48px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+    }
+
+    #topbar .breadcrumb {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #topbar .breadcrumb span { color: var(--text); font-weight: 500; }
+
+    #content {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #skill-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: var(--bg);
+    }
+
+    #placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    #placeholder .big-icon { font-size: 48px; opacity: 0.3; }
+    #placeholder p { font-size: 14px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo"><span class="logo-dot"></span>Neamt</div>
+  </div>
+  <div class="nav-label">Skills</div>
+  <nav id="nav"></nav>
+  <div class="sidebar-footer">neamt-core v0.1.0</div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <div class="breadcrumb">Dashboard / <span id="active-label">—</span></div>
+  </div>
+  <div id="content">
+    <div id="placeholder">
+      <div class="big-icon">⬡</div>
+      <p>Select a skill from the sidebar</p>
+    </div>
+    <iframe id="skill-frame" style="display:none;"></iframe>
+  </div>
+</div>
+
+<script>
+  const NAV_ITEMS = __NAV_ITEMS__;
+
+  const nav = document.getElementById('nav');
+  const frame = document.getElementById('skill-frame');
+  const placeholder = document.getElementById('placeholder');
+  const activeLabel = document.getElementById('active-label');
+
+  let activeId = null;
+
+  if (NAV_ITEMS.length === 0) {
+    nav.innerHTML = '<div class="empty-nav">No skills installed</div>';
+  } else {
+    NAV_ITEMS.forEach(item => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-item';
+      btn.dataset.id = item.id;
+      btn.dataset.route = item.route;
+      btn.innerHTML = `<span class="icon">${item.icon}</span><span>${item.label}</span>`;
+      btn.addEventListener('click', () => activate(item));
+      nav.appendChild(btn);
+    });
+  }
+
+  function activate(item) {
+    if (activeId === item.id) return;
+    activeId = item.id;
+
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.nav-item[data-id="${item.id}"]`)?.classList.add('active');
+
+    activeLabel.textContent = item.label;
+    frame.src = item.route;
+    frame.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+
+  // ── postMessage bridge ──
+  // Skills send: { neamt_call: { action, payload } }
+  // Bridge responds: { neamt_response: { status, result?, message? } }
+  window.addEventListener('message', async (event) => {
+    const data = event.data;
+    if (!data || !data.neamt_call || !activeId) return;
+
+    const { action, payload = {} } = data.neamt_call;
+
+    try {
+      const res = await fetch(`/api/skills/${activeId}/call`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, payload }),
+      });
+      const json = await res.json();
+      event.source?.postMessage({ neamt_response: json }, '*');
+    } catch (err) {
+      event.source?.postMessage({
+        neamt_response: { status: 'error', message: String(err) }
+      }, '*');
+    }
+  });
+</script>
+</body>
+</html>

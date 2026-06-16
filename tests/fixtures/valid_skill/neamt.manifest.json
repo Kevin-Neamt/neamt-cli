@@ -1,0 +1,10 @@
+{
+  "id": "valid-skill",
+  "name": "Valid Skill",
+  "version": "1.0.0",
+  "author": "Test Author",
+  "description": "A valid test skill",
+  "permissions": ["internet"],
+  "entry": "main.py",
+  "neamt_version": "0.1.0"
+}

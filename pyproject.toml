@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "neamt-core"
+version = "0.1.0"
+description = "Neamt skill runtime — install, sandbox, and orchestrate AI-powered skills"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "typer>=0.12",
+    "rich>=13.0",
+    "pydantic>=2.0",
+    "httpx>=0.27",
+    "websockets>=12.0",
+    "cryptography>=42.0",
+    "anthropic>=0.25",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx"]
+
+[project.scripts]
+neamt = "cli.__main__:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["neamt", "cli", "dashboard"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
