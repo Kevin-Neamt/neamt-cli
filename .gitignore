@@ -5,10 +5,15 @@ __pycache__/
 *.pyo
 *.egg-info/
 dist/
-build/
 .pytest_cache/
 *.db
 .neamt_test_*
+
+# Node / Electron
+node_modules/
+release/
+electron/python/
+python/
 
 # Environment & secrets
 .env

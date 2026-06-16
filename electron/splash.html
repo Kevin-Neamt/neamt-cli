@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:;" />
+    <title>Neamt</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        height: 100%;
+        background: #0c0c0f;
+        color: #f0f0f5;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+        user-select: none;
+      }
+      .wrap {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+      }
+      .logo {
+        width: 72px;
+        height: 72px;
+        filter: drop-shadow(0 0 24px rgba(124, 58, 237, 0.45));
+        animation: breathe 2.4s ease-in-out infinite;
+      }
+      .logo svg { width: 100%; height: 100%; }
+      .title {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .status {
+        font-size: 12.5px;
+        color: #7b7b8f;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .spinner {
+        width: 13px;
+        height: 13px;
+        border: 2px solid rgba(124, 58, 237, 0.25);
+        border-top-color: #7c3aed;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes breathe {
+        0%, 100% { transform: scale(1); opacity: 0.95; }
+        50% { transform: scale(1.05); opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="logo">
+        <svg viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M498.957 72L152.177 272.035L310.818 363.545L498.957 255.02V72ZM272.39 436.51L114 345.145V739.627L272.39 648.262V436.51ZM581.417 255.02V72.7928L925.72 271.398L767.765 362.512L581.417 255.02ZM807.984 650.328V434.444L965 343.872V740.9L807.984 650.328ZM763.953 720.06L920.717 810.487L581.417 1006.21V825.353L763.953 720.06ZM498.957 1007V825.353L314.631 719.028L157.18 809.851L498.957 1007Z" fill="#F0F0F5"/>
+        </svg>
+      </div>
+      <div class="title">Neamt</div>
+      <div class="status"><span class="spinner"></span> Starting engine…</div>
+    </div>
+  </body>
+</html>
