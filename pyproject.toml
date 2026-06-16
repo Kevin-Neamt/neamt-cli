@@ -42,7 +42,7 @@ dependencies = [
 dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx"]
 
 [project.urls]
-Homepage = "https://neamt.dev"
+Homepage = "https://neamt.ai"
 Repository = "https://github.com/Kevin-Neamt/neamt-cli"
 Issues = "https://github.com/Kevin-Neamt/neamt-cli/issues"
 
