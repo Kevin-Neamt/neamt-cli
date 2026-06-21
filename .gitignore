@@ -15,6 +15,10 @@ release/
 electron/python/
 python/
 
+# Built dashboard bundle (compiled from the neamt-ai client) + packaged installers
+dashboard/web/
+*.dmg
+
 # Environment & secrets
 .env
 .env.*
